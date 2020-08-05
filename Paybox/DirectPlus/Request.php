@@ -41,9 +41,11 @@ class Request extends AbstractRequest
      * @param array                    $servers
      * @param LoggerInterface          $logger
      * @param EventDispatcherInterface $dispatcher
+     * @param TransportInterface       $transport
      */
     public function __construct(array $parameters, array $servers, LoggerInterface $logger, EventDispatcherInterface $dispatcher, TransportInterface $transport)
     {
+        parent::__construct($parameters, $servers);
         $this->parameters = array();
         $this->globals    = array();
         $this->servers    = $servers['direct_plus'];
@@ -141,7 +143,7 @@ class Request extends AbstractRequest
                 $verified = ('00000' === $result['CODEREPONSE']) && !empty($result['NUMTRANS']) && !empty($result['NUMAPPEL']);
 
                 $event = new PayboxResponseEvent($result, $verified);
-                $this->dispatcher->dispatch(PayboxEvents::PAYBOX_API_RESPONSE, $event);
+                $this->dispatcher->dispatch($event);
 
                 return $result;
             } else {

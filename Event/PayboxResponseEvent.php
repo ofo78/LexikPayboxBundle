@@ -2,7 +2,8 @@
 
 namespace Lexik\Bundle\PayboxBundle\Event;
 
-use Symfony\Component\EventDispatcher\Event;
+
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * PayboxResponseEvent class.
